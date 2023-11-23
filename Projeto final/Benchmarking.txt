@@ -1,0 +1,8 @@
+Projetos relacionados:
+
+Nome: Widgetable
+Plataforma: Mobile App
+Link: https://play.google.com/store/apps/details?id=com.widgetable.theme.android&hl=pt_BR&gl=US&pli=1
+Funcionalidades desejadas:
+
+

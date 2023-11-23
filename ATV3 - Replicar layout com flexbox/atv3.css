@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+}
+
+a {
+  background-color: tomato;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px 15px;
+  border-radius: 50px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  background-color: #6500E6;
+  font-family: Helvetica, sans-serif;
+  height: 75px;
+}
+
+header {
+    background-color: #8BC4FE;
+    height: 200px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    background-color: black;
+    height: 30px;
+
+    font-family: Helvetica, sans-serif;
+    color: white;
+    padding-top: 4px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    background-color: white;
+    height: 500px;
+    max-width: 100%;
+    margin: 50px; /* Add 50px margins to all sides */
+}
+
+#upper-container{
+    display: flex;
+
+    background-color: #E8F684;
+    height: 40%; /* Set upper-container's height to 40% of the parent's height (section) */
+    width: 100%;
+    margin-left: auto; /* Equal spacing on the left */
+    margin-right: auto; /* Equal spacing on the right */
+
+}
+
+#flex-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+
+    background-color: grey;
+    height: 60%; /* Set upper-container's height to 60% of the parent's height (section) */    
+    width: 100%;
+    margin-left: auto; /* Equal spacing on the left */
+    margin-right: auto; /* Equal spacing on the right */
+}
+
+.flex-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #FF5429;
+    border: 1px solid black;
+    height: 60%; /* 60% of the parent's height (flex-container) */
+    width: 25%; /* 25% of the parent's width (flex-container) */
+}
+
+.flex-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    background-color: #00A500;
+    border: 1px solid black;
+    height: 20%; /* 20% of the parent's height (flex-box) */
+    width: 70%; /* 70% of the parent's width (flex-box) */
+    margin: 0px;
+
+    font-family: Helvetica, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 2%;
+}
+
+

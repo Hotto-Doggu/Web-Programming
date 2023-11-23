@@ -1,0 +1,55 @@
+body {
+    background-color: whitesmoke;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    padding: 15px 0; /* 15px on top and bottom, 0 on left and right */
+    margin: 0;
+}
+
+a {
+    color: white;
+    font-weight: bold;
+    font-size: 26px;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: black;
+    font-weight: bold;
+    padding: 10px 0 0 10px; /* 10px padding on top and left, 0 on right and bottom */
+    margin: 0;
+}
+
+#centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#lamp {
+    display: block;
+}
+
+#counter {
+    display: block;
+    font-size: 18px;
+}
+
+#go-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
