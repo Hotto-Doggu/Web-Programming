@@ -1,0 +1,21 @@
+O projeto final será o front de um chatbot (estilo ChatGPT) que irá responder aos alunos da UFOP dúvidas acadêmicas a respeito de regimentos, calendários, etc. 
+Esse chatbot está sendo desenvolvido pelo Prof. Pedro Silva (DECOM) e seus alunos.
+
+O usuário deverá ser capaz de fazer uma query no prompt e o chat retornará uma resposta. 
+Sejam criativos com a tela e lembrem-se das boas práticas que já discutimos: 
+    responsividade (tem que ficar bom em diferentes tamanhos de tela); 
+    separação de conceitos (não misture códigos no mesmo arquivo);  
+    etc...
+
+Utilizem quaisquer tecnologias que vocês desejarem, em termos de bibliotecas e frameworks.
+
+Enquanto a equipe do Prof. Pedro não termina a API do chatbot, peço que vocês criem no servidor rotas para que o servidor receba as queries do usuário no corpo (body) da requisição e prepare uma resposta 
+de retorno em forma de um JSON, que será recebido pelo front. Vocês podem servir os arquivos estáticos da forma como estamos fazendo (dentro do diretório Public), por exemplo.
+
+As apresentações serão no dia 05 de Fevereiro de 2024, no horário da aula. 
+A apresentação terá de 5 a 10 minutos de duração, por grupo. 
+Basta mostrar a aplicação em execução, mostrar que é responsiva, mencionar as tecnologias utilizadas, detalhes que acharem pertinentes do código, etc. 
+Não precisa de slides. 
+No mesmo dia teremos uma votação para ver qual foi a melhor aplicação e seus autores ganharão um prêmio (será simples, mas já é mais que apenas um "parabéns, ficou bacana" rsrs)
+
+Logo após a apresentação, os arquivos-fonte deverão ser entregues a mim por email (vander.freitas@ufop.edu.br), seja via o link do github ou mesmo os arquivos compactados, com o nome dos integrantes do grupo no corpo do email.

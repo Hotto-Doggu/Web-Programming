@@ -1,0 +1,7 @@
+Criamos um Servidor que recebe uma requisição do tipo POST, contendo um texto no corpo da requisição. O servidor deverá entregar o texto ao chatbot, gerar uma resposta e enviar o texto resultante ao cliente.
+
+Do lado do cliente, o usuário irá digitar um texto e clicar em um botão de envio. O texto devera ser enviado ao servidor no corpo (body) da requisição. A resposta do servidor será um texto, que deverá ser exibido na tela.
+
+Servimos a página web (front) de forma estática no próprio servidor, dentro do diretório public, de modo que o usuário faça o acesso via localhost.
+
+Rode 'node server.js' neste diretório para iniciar o servidor na porta 3000, e você poderá acessar a aplicação no navegador em http://localhost:3000.

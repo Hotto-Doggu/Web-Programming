@@ -1,0 +1,45 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#container {
+  text-align: center;
+}
+
+#menu {
+  margin-bottom: 20px;
+}
+
+#processButton {
+  margin-bottom: 35px; /* Adiciona espaço abaixo do botão "Processar Lista" */
+}
+
+button {
+  display: block;
+  font-size: 24pt;
+  width: 500px;
+  margin: 5px auto;
+}
+
+input {
+  font-size: 16pt;
+  padding: 5px;
+  width: 500px;
+  margin-bottom: 10px;
+  box-sizing: border-box; 
+  align-items: center;
+}
+
+#status-bar {
+  font-size: 18pt;
+}
+
+#credentials {
+  font-size: 18pt;
+  margin-top: 300px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,15 @@
+{
+"name": "Image Count and Substitute Chrome Extension",
+"version": "1.0",
+"description": "Extensão que mostra o número de imagens que existe em páginas com fim *.br (exibido em texto, no topo da página), e substitui todas as imagens por uma pré-definida.",
+"content_scripts": [
+{
+"matches": ["*://*.br/*"],
+"js": ["page.js"]
+}
+],
+"manifest_version": 2,
+"web_accessible_resources": [
+    "as_the_gods_will.jpg"
+  ]
+}

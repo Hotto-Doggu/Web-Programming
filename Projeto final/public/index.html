@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversação com ChatBot através de Texto</title>
+</head>
+<body>
+    <textarea id="inputTexto" placeholder="Digite o texto"></textarea>
+    <button onclick="enviar(true)">Converse com o chatbot</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        async function transformar(paraMaiusculo) {
+            const texto = document.getElementById('inputTexto').value;
+
+            const response = await fetch('/transformar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `texto=${encodeURIComponent(texto)}`,
+            });
+
+            const resultado = await response.text();
+            document.getElementById('resultado').innerText = resultado;
+        }
+    </script>
+</body>
+</html>

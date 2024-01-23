@@ -1,0 +1,78 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.flex-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: black;
+    border: none;
+    height: 25%; /* 25% of the parent's height (body) */
+    width: 100%; /* 100% of the parent's width (body) */
+}
+
+.flex-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    border: 1px solid white;
+    height: 100%; /* 100% of the parent's height (flex-box) */
+    width: 18%; /* 18% of the parent's width (flex-box) */
+    margin: 5px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    padding: 15px 0; /* 15px on top and bottom, 0 on left and right */
+    margin: 0;
+}
+
+#filmes, #destaques, #minhaLista {
+    padding-left: 10px; /* 10px padding on the left */
+}
+
+picture {
+    display: block;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%; /* Added max-height to maintain aspect ratio */
+    display: block;
+    margin: 0 auto;
+}
+
+a {
+    color: white;
+    font-weight: bold;
+    font-size: 26px;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: red;
+    font-weight: bold;
+    padding: 10px 0 0 10px; /* 10px padding on top and left, 0 on right and bottom */
+    margin: 0;
+}
+
+#go-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
