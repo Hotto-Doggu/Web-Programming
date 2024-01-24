@@ -1,21 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const routes = require('./routes');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.post('/transformar', (req, res) => {
-    const texto = req.body.texto;
-    const paraMaiusculo = req.body.paraMaiusculo === 'true';
-
-    const textoTransformado = paraMaiusculo ? texto.toUpperCase() : texto.toLowerCase();
-
-    res.send(textoTransformado);
-});
+app.use('/api', routes);
 
 app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
