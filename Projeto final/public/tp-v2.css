@@ -1,0 +1,92 @@
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color:rgb(132, 10, 34);
+  margin: 0;
+  padding: 0;
+}
+header{
+  background-color: black;
+  height: 40px;
+}
+h1{
+  color:white;
+}
+ 
+
+  #chat-container {
+    display: flex;
+    height: 400px; /* Ajuste a altura conforme necessário */
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #chat-history,
+  #user-input,
+  #chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: scroll;
+  }
+  
+  #chat-history {
+    border-right: 1px solid #ddd;
+  }
+  
+  #user-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #message-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Adicionando uma aparência mais moderna às mensagens */
+  .message {
+    background-color: #e4f1fe;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para a barra de rolagem */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+  }
+  
