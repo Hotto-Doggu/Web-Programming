@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(132, 10, 34);;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: black;
+    height: 40px;
+  }
+
+h1 {
+    color: white;
+}
+
+.row {
+    display: -webkit-flex;
+    display: flex;
+  }
+  
+  
+  .column {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 10px;
+    height: 500px; 
+  }
+  
+  
+  .footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+  }
+  
+ 
+  @media (max-width: 600px) {
+    .row {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+  }
