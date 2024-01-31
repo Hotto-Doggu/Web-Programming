@@ -4,32 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Frontend</title>
+    <link rel="stylesheet" href="tp.css">
+    <title>UFOP ChaT</title>
 </head>
+<header></header>
+    <h1>UFOP ChaT</h1>
+    <br/>
+    <br/>
 <body>
-    <input type="text" id="queryInput" placeholder="Digite sua pergunta...">
-    <button onclick="enviar()">Conversar com Chatbot</button>
-    
-    <div id="chatbox"></div>
-
-    <script>
-        async function enviar() {
-            const queryInput = document.getElementById('queryInput');
-            const userQuery = queryInput.value;
-
-            const response = await fetch('/api/query', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: userQuery }),
-            });
-
-            const result = await response.json();
-
-            const chatbox = document.getElementById('chatbox');
-            chatbox.innerHTML = result.answer;
-        }
-    </script>
-</body>
+    <div id="auth-container">
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" placeholder="Digite o usuário">
+  
+      <label for="password">Senha:</label>
+      <input type="password" id="password" placeholder="Digite a senha">
+  
+      <button onclick="autenticar()">Logar</button>
+      <button onclick="cadastrar()">Cadastrar</button>
+      <button onclick="logout()">Sair</button>
+  
+      <div id="resultado"></div>
+    </div>
+  
+    <div id="chat-container">
+      <div id="chat-history"></div>
+      <div id="user-input">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+      <div id="chat-messages"></div>
+    </div>
+  
+    <script src="tp.js"></script>
+  </body>
+  
 </html>

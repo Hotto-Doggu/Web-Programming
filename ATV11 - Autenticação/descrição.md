@@ -12,8 +12,8 @@
 
 ## Iniciando o Ambiente:
 Antes de executar a aplicação, certifique-se de ter o MongoDB instalado e iniciar três terminais separados:
-* Terminal para o Cliente MongoDB: Execute mongo para acessar o shell do MongoDB e crie o banco de dados com use toyauth.
-* Terminal para o Servidor do Banco de Dados MongoDB: Execute mongod para iniciar o servidor do MongoDB.
+* Terminal para o Cliente MongoDB: Execute 'mongo' para acessar o shell do MongoDB e crie o banco de dados com 'use toyauth'.
+* Terminal para o Servidor do Banco de Dados MongoDB: Execute 'mongod' para iniciar o servidor do MongoDB.
 * Terminal para a Aplicação: Execute node server.js para iniciar a aplicação.
 
 ## Conexão com o MongoDB:
