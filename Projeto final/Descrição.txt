@@ -1,21 +1,28 @@
-O projeto final será o front de um chatbot (estilo ChatGPT) que irá responder aos alunos da UFOP dúvidas acadêmicas a respeito de regimentos, calendários, etc. 
-Esse chatbot está sendo desenvolvido pelo Prof. Pedro Silva (DECOM) e seus alunos.
+# Projeto UFOP Chatbot
 
-O usuário deverá ser capaz de fazer uma query no prompt e o chat retornará uma resposta. 
-Sejam criativos com a tela e lembrem-se das boas práticas que já discutimos: 
-    responsividade (tem que ficar bom em diferentes tamanhos de tela); 
-    separação de conceitos (não misture códigos no mesmo arquivo);  
-    etc...
+## Descrição
+O projeto UFOP Chatbot é um sistema de chat interativo que permite aos usuários da UFOP (Universidade Federal de Ouro Preto) fazerem consultas sobre questões acadêmicas, como regimentos, calendários e outras informações relacionadas à universidade. O chatbot fornece respostas automáticas com base nas consultas dos usuários.
 
-Utilizem quaisquer tecnologias que vocês desejarem, em termos de bibliotecas e frameworks.
+## Funcionamento
+O sistema consiste em um frontend onde os usuários podem inserir suas consultas e receber respostas do chatbot, e um backend que gerencia as requisições dos usuários, interage com o chatbot e fornece as respostas.
 
-Enquanto a equipe do Prof. Pedro não termina a API do chatbot, peço que vocês criem no servidor rotas para que o servidor receba as queries do usuário no corpo (body) da requisição e prepare uma resposta 
-de retorno em forma de um JSON, que será recebido pelo front. Vocês podem servir os arquivos estáticos da forma como estamos fazendo (dentro do diretório Public), por exemplo.
+### Backend
+O backend é construído com Node.js e utiliza o framework Express para gerenciar as rotas da aplicação. Ele inclui um servidor que recebe consultas dos usuários via requisições POST. A lógica do chatbot é encapsulada no arquivo `queryController.js`, onde a função `handleUserQuery` processa as consultas e interage com o chatbot para gerar respostas. O servidor também utiliza sessões para manter o estado do usuário.
 
-As apresentações serão no dia 05 de Fevereiro de 2024, no horário da aula. 
-A apresentação terá de 5 a 10 minutos de duração, por grupo. 
-Basta mostrar a aplicação em execução, mostrar que é responsiva, mencionar as tecnologias utilizadas, detalhes que acharem pertinentes do código, etc. 
-Não precisa de slides. 
-No mesmo dia teremos uma votação para ver qual foi a melhor aplicação e seus autores ganharão um prêmio (será simples, mas já é mais que apenas um "parabéns, ficou bacana" rsrs)
+### Frontend
+O frontend é composto por uma página HTML (`index.html`), um arquivo de estilo CSS (`tp.css`) e um script JavaScript (`tp.js`). A interface do usuário permite que os usuários insiram suas consultas, enviem para o servidor e exibam as respostas do chatbot. O frontend utiliza a biblioteca Fetch API para se comunicar com o backend.
 
-Logo após a apresentação, os arquivos-fonte deverão ser entregues a mim por email (vander.freitas@ufop.edu.br), seja via o link do github ou mesmo os arquivos compactados, com o nome dos integrantes do grupo no corpo do email.
+## Inicialização do Ambiente
+1. Certifique-se de ter o MongoDB instalado e iniciado.
+2. Execute `npm install` para instalar as dependências.
+3. Execute `node server.js` para iniciar o servidor.
+4. Acesse a aplicação em http://localhost:3000.
+
+## Estrutura do Projeto
+- `public`: Contém arquivos estáticos do lado do cliente, como HTML, CSS e scripts do navegador.
+- `server.js`: Ponto de entrada do servidor Node.js, gerencia rotas, interação com MongoDB e lógica de autenticação.
+- `authRoutes`: Contém controladores e rotas relacionadas à autenticação do usuário.
+- `routes`: Contém arquivos de controle e rotas para a aplicação.
+- `__tests__`: Contém testes automatizados para os controladores.
+- `jest.config.js`: Configuração do Jest para testes.
+- `package.json`: Arquivo de configuração do Node.js com as dependências necessárias.

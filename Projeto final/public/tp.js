@@ -1,5 +1,4 @@
 // tp.js
-
 async function sendMessage() {
   var messageInput = document.getElementById('message-input');
   var message = messageInput.value;
@@ -10,34 +9,53 @@ async function sendMessage() {
     newMessage.className = 'message';
 
     // Adicione o nome do usuário ao remetente da mensagem
-    newMessage.textContent = `${getCurrentUser()}: ${message}`;
+    newMessage.textContent = `${await getCurrentUser()}: ${message}`;
     chatMessages.appendChild(newMessage);
 
     // Enviar a mensagem para o servidor com o nome de usuário
-    const response = await fetch('/api/query', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username: getCurrentUser(), query: message }),
-    });
+    try {
+      const response = await fetch('/api/query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: await getCurrentUser(), query: message }),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    // Exibir a resposta do chatbot na tela
-    const chatbotResponse = document.createElement('div');
-    chatbotResponse.className = 'message';
-    chatbotResponse.textContent = `Chatbot: ${result.answer}`;
-    chatMessages.appendChild(chatbotResponse);
+      // Exibir a resposta do chatbot na tela
+      const chatbotResponse = document.createElement('div');
+      chatbotResponse.className = 'message';
+      chatbotResponse.textContent = `Chatbot: ${result.answer}`;
+      chatMessages.appendChild(chatbotResponse);
 
-    messageInput.value = ''; // Limpar o campo de entrada
+      messageInput.value = ''; // Limpar o campo de entrada
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error);
+    }
   }
 }
 
-function getCurrentUser() {
-  // Adicione lógica para obter o nome do usuário, verificar se está autenticado
-  // Se não estiver autenticado, retorne um valor padrão ou execute outra lógica de controle de erro
-  return 'Usuário'; // Substitua pelo nome do usuário atual
+async function getCurrentUser() {
+  try {
+    const response = await fetch('/auth/getCurrentUser', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const user = await response.json();
+      return user.username;
+    } else {
+      return 'Usuário'; // Substitua pelo valor padrão ou lógica de erro desejados
+    }
+  } catch (error) {
+    console.error('Erro ao obter usuário atual:', error);
+    return 'Usuário'; // Substitua pelo valor padrão ou lógica de erro desejados
+  }
 }
 
 async function autenticar() {
@@ -80,8 +98,25 @@ async function cadastrar() {
   resultado.textContent = result;
 }
 
-function logout() {
-  // Adicionar lógica de logout conforme necessário
-  // Recarregar a página
-  alert('Logout realizado');
+async function logout() {
+  try {
+    const response = await fetch('/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.text();
+
+    alert(result); // Exibe uma mensagem indicando que o logout foi realizado
+    
+    // Redireciona para a página de login ou executa outras ações de interface do usuário
+    window.location.reload();
+  } catch (error) {
+    console.error('Erro durante o logout:', error);
+    alert('Erro durante o logout.');
+  }
 }
+
+module.exports = { sendMessage, getCurrentUser, autenticar, cadastrar, logout };

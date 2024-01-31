@@ -1,51 +1,54 @@
-const { User } = require('../authRoutes/authController'); // Ajuste o caminho conforme necessário
+// queryController.js
+const { User } = require('../authRoutes/authController');
+
+const interactWithChatbot = async (username, userQuery) => {
+  // Lógica para interagir com o serviço de chatbot
+  // Pode incluir chamadas de API, processamento de linguagem natural, etc.
+  const chatbotResponse = await getChatbotResponse(userQuery);
+
+  // Atualizar o histórico de mensagens do usuário
+  await User.findOneAndUpdate(
+    { username },
+    {
+      $push: {
+        chats: {
+          withUser: 'Chatbot',
+          messages: [
+            {
+              sender: username,
+              content: userQuery,
+            },
+            {
+              sender: 'Chatbot',
+              content: chatbotResponse.answer,
+            },
+          ],
+        },
+      },
+    }
+  );
+
+  return chatbotResponse;
+};
 
 const handleUserQuery = async (req, res) => {
-    try {
-        const { username, query } = req.body;
+  try {
+    const { username, query } = req.body;
 
-        // Adicionar lógica para salvar a mensagem no banco de dados (MongoDB) com o username
-        // e também obter a resposta do chatbot
-        // ...
+    // Lógica para salvar a mensagem no banco de dados e obter resposta do chatbot
+    const chatbotResponse = await interactWithChatbot(username, query);
 
-        // Placeholder para a resposta do chatbot
-        const chatbotResponse = {
-            answer: "This is a placeholder response from the chatbot.",
-        };
-
-        // Adicionar a resposta do chatbot ao histórico de mensagens do usuário
-        await User.updateOne(
-            { username },
-            {
-                $push: {
-                    chats: {
-                        withUser: 'Chatbot',
-                        messages: [
-                            {
-                                sender: username,
-                                content: query,
-                            },
-                            {
-                                sender: 'Chatbot',
-                                content: chatbotResponse.answer,
-                            },
-                        ],
-                    },
-                },
-            }
-        );
-
-        res.json(chatbotResponse);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+    res.json(chatbotResponse);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 const getChatbotResponse = async (userQuery) => {
-    // Implement logic to interact with the chatbot service
-    // Return the chatbot response
-    return { answer: 'This is a placeholder response from the chatbot.' };
+  // Implemente a lógica para interagir com o chatbot aqui
+  // Retorne a resposta do chatbot
+  return { answer: 'This is a placeholder response from the chatbot.' };
 };
 
 module.exports = { handleUserQuery, getChatbotResponse };
