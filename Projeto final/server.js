@@ -43,6 +43,12 @@ app.use(
   })
 );
 
+// Permitir que as requisições possam acessar a sessão
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+  });
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

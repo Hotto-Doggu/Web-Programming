@@ -46,17 +46,52 @@ async function getCurrentUser() {
       },
     });
 
-    if (response.status === 200) {
+    if (response.ok) {
       const user = await response.json();
       return user.username;
     } else {
-      return 'Usuário'; // Substitua pelo valor padrão ou lógica de erro desejados
+      return 'Usuário'; 
     }
   } catch (error) {
     console.error('Erro ao obter usuário atual:', error);
-    return 'Usuário'; // Substitua pelo valor padrão ou lógica de erro desejados
+    return 'Usuário'; 
   }
 }
+
+// Função para limpar o chat
+function limparChat() {
+  const chatMessages = document.getElementById('chat-messages');
+  chatMessages.innerHTML = '';
+}
+
+// Função para exibir mensagens no chat no formato correto
+function exibirMensagem(withUser, sender, content) {
+  const chatMessages = document.getElementById('chat-messages');
+  const newMessage = document.createElement('div');
+  newMessage.className = 'message';
+  newMessage.textContent = `${withUser ? withUser + ': ' : ''}${sender}: ${content}`;
+  chatMessages.appendChild(newMessage);
+}
+
+const loadConversations = async () => {
+  try {
+    const response = await fetch('/auth/conversas', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const { chats } = await response.json();
+      // Processar e exibir as conversas no frontend conforme necessário
+    } else {
+      // Lidar com erros ou nenhum retorno de conversas
+    }
+  } catch (error) {
+    console.error('Erro ao carregar conversas:', error);
+  }
+};
 
 async function autenticar() {
   const usernameInput = document.getElementById('username');
@@ -66,17 +101,49 @@ async function autenticar() {
   const username = usernameInput.value;
   const password = passwordInput.value;
 
-  const response = await fetch('/auth/autenticar', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username, password, action: 'login' }),
-  });
+  try {
+    const response = await fetch('/auth/autenticar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
 
-  const result = await response.text();
-  resultado.textContent = result;
+    if (response.ok) {
+      handleSuccessfulLogin(await response.json());
+    } else {
+      handleLoginError(response.status);
+    }
+  } catch (error) {
+    console.error('Erro durante o login:', error);
+    resultado.textContent = `Erro durante o login: ${error.message}`;
+  }
 }
+
+function handleSuccessfulLogin(result) {
+  limparChat();
+  // Assumindo que result.messages contém as mensagens salvas
+  if (result.messages) {
+    result.messages.forEach((message) => {
+      exibirMensagem(message.withUser, message.sender, message.content);
+    });
+  }
+  resultado.textContent = 'Login realizado com sucesso!';
+  loadConversations();
+}
+
+
+function handleLoginError(status) {
+  if (status === 401) {
+    resultado.textContent = 'Senha incorreta. Tente novamente.';
+  } else if (status === 404) {
+    resultado.textContent = 'Usuário não encontrado. Verifique o nome de usuário.';
+  } else {
+    resultado.textContent = 'Erro durante o login. Tente novamente mais tarde.';
+  }
+}
+
 
 async function cadastrar() {
   const usernameInput = document.getElementById('username');
@@ -86,16 +153,21 @@ async function cadastrar() {
   const username = usernameInput.value;
   const password = passwordInput.value;
 
-  const response = await fetch('/auth/cadastrar', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username, password, action: 'register' }),
-  });
+  try {
+    const response = await fetch('/auth/cadastrar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password, action: 'register' }),
+    });
 
-  const result = await response.text();
-  resultado.textContent = result;
+    const result = await response.text();
+    resultado.textContent = result;
+  } catch (error) {
+    console.error('Erro durante o cadastro:', error);
+    resultado.textContent = 'Erro durante o cadastro.';
+  }
 }
 
 async function logout() {
@@ -110,7 +182,7 @@ async function logout() {
     const result = await response.text();
 
     alert(result); // Exibe uma mensagem indicando que o logout foi realizado
-    
+
     // Redireciona para a página de login ou executa outras ações de interface do usuário
     window.location.reload();
   } catch (error) {
@@ -118,5 +190,3 @@ async function logout() {
     alert('Erro durante o logout.');
   }
 }
-
-module.exports = { sendMessage, getCurrentUser, autenticar, cadastrar, logout };

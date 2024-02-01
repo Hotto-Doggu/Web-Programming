@@ -14,6 +14,8 @@ O frontend é composto por uma página HTML (`index.html`), um arquivo de estilo
 
 ## Inicialização do Ambiente
 1. Certifique-se de ter o MongoDB instalado e iniciado.
+    1a. Instancie o servidor do banco de dados com `mongod` 
+    1b. Instancie o cliente do banco de dados com `mongo`, seguido de `use chatbot` dentro do shell
 2. Execute `npm install` para instalar as dependências.
 3. Execute `node server.js` para iniciar o servidor.
 4. Acesse a aplicação em http://localhost:3000.

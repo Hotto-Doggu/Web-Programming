@@ -20,29 +20,30 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 const autenticar = async (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).send('Dados de entrada inválidos.');
-  }
-
-  try {
-    const user = await User.findOne({ username });
-
-    if (user) {
-      if (user.password === password) {
-        req.session.user = user; // Armazena o usuário na sessão
-        return res.send('Logado com sucesso!');
-      } else {
-        return res.status(401).send('Senha incorreta.');
-      }
-    } else {
-      return res.status(404).send('Usuário não encontrado.');
+    const { username, password } = req.body;
+  
+    if (!username || !password) {
+      return res.status(400).send('Dados de entrada inválidos.');
     }
-  } catch (error) {
-    console.error('Erro durante a autenticação:', error);
-    return res.status(500).send('Erro durante a autenticação.');
-  }
+  
+    try {
+      const user = await User.findOne({ username });
+
+      if (user) {
+        if (user.password === password) {
+          // Armazena o usuário na sessão
+          req.session.user = user;
+          return res.json({ message: 'Logado com sucesso!' });
+        } else {
+          return res.status(401).send('Senha incorreta.');
+        }
+      } else {
+        return res.status(404).send('Usuário não encontrado.');
+      }
+    } catch (error) {
+      console.error('Erro durante a autenticação:', error);
+      return res.status(500).send('Erro durante a autenticação.');
+    }
 };
 
 const cadastrar = async (req, res) => {
@@ -68,21 +69,6 @@ const cadastrar = async (req, res) => {
   }
 };
 
-const getCurrentUser = async (req, res) => {
-  try {
-    const user = req.session.user;
-
-    if (user) {
-      return res.status(200).json({ username: user.username });
-    } else {
-      return res.status(401).json({ message: 'Usuário não autenticado' });
-    }
-  } catch (error) {
-    console.error('Erro ao obter usuário atual:', error);
-    return res.status(500).json({ error: 'Erro ao obter usuário atual' });
-  }
-};
-
 const logout = (req, res) => {
     try {
         // Destruir a sessão no servidor
@@ -102,5 +88,35 @@ const logout = (req, res) => {
         return res.status(500).send('Erro durante o logout.');
     }
 };
+
+const getCurrentUser = async (req, res) => {
+  try {
+    const user = req.session.user;
+
+    if (user) {
+      return res.status(200).json({ username: user.username });
+    } else {
+      return res.status(401).json({ message: 'Usuário não autenticado' });
+    }
+  } catch (error) {
+    console.error('Erro ao obter usuário atual:', error);
+    return res.status(500).json({ error: 'Erro ao obter usuário atual' });
+  }
+};
   
-module.exports = { User, getCurrentUser, autenticar, cadastrar, logout };
+const getConversations = async (req, res) => {
+    try {
+      const user = req.session.user;
+  
+      if (user) {
+        return res.status(200).json({ chats: user.chats });
+      } else {
+        return res.status(401).json({ message: 'Usuário não autenticado' });
+      }
+    } catch (error) {
+      console.error('Erro ao obter conversas do usuário:', error);
+      return res.status(500).json({ error: 'Erro ao obter conversas do usuário' });
+    }
+};
+  
+module.exports = { User, getCurrentUser, autenticar, cadastrar, logout, getConversations };

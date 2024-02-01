@@ -5,7 +5,8 @@ const authController = require('./authController');
 
 router.post('/autenticar', authController.autenticar);
 router.post('/cadastrar', authController.cadastrar);
+router.post('/logout', authController.logout); 
 router.get('/getCurrentUser', authController.getCurrentUser);
-router.post('/logout', authController.logout); // Adicionando a rota de logout
+router.get('/conversas', authController.getConversations);
 
 module.exports = router;
