@@ -11,12 +11,13 @@ header{
 }
 h1{
   color:white;
+  text-align: center;
 }
  
 
   #chat-container {
     display: flex;
-    height: 400px; /* Ajuste a altura conforme necessário */
+    height: 700px; /* Ajuste a altura conforme necessário */
     margin: 20px auto;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -45,11 +46,12 @@ h1{
   
   #message-input {
     flex: 1;
-    padding: 12px;
+    padding: 42px;
     border: 1px solid #ddd;
     border-radius: 6px;
     margin-bottom: 10px;
     font-size: 14px;
+    content: 4px; 
   }
   
   button {
@@ -75,6 +77,9 @@ h1{
     margin-bottom: 10px;
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    resize: both;
+    overflow-y: auto;
+    word-wrap: break-word;
   }
   
   /* Estilo para a barra de rolagem */
@@ -91,3 +96,32 @@ h1{
     background-color: #f5f5f5;
   }
   
+  /* Adicione algum estilo opcional para a aparência do textarea */
+textarea {
+  width: 200px;
+  height: 100px;
+  resize: both;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+textarea input{
+  padding: 3px;
+}
+#button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+   /* Ajuste conforme necessário */
+}
+
+#button-container button {
+  margin-bottom: 150px; /* Espaçamento entre os botões, ajuste conforme necessário */
+}
+
+#password{
+  color: black;
+}
+#auth-container label{
+  color: white;
+}
