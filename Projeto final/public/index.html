@@ -19,9 +19,9 @@
       <label for="password">Senha:</label>
       <input type="password" id="password" placeholder="Digite a senha">
   
-      <button id="login-button" onclick="autenticar()">Logar</button>
-      <button id="register-button" onclick="cadastrar()">Cadastrar</button>
-      <button id="logout-button" onclick="logout()">Sair</button>
+      <button onclick="autenticar()">Logar</button>
+      <button onclick="cadastrar()">Cadastrar</button>
+      <button onclick="logout()">Sair</button>
   
       <div id="resultado"></div>
     </div>
@@ -29,7 +29,7 @@
     <div id="chat-container">
       <div id="chat-history"></div>
       <div id="user-input">
-        <input type="text" id="message-input" placeholder="Type your message...">
+        <textarea id="message-input" placeholder="Type your message..." rows="4"></textarea>
         <button onclick="sendMessage()">Send</button>
       </div>
       <div id="chat-messages"></div>
