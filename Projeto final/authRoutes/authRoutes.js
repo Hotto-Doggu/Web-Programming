@@ -8,5 +8,6 @@ router.post('/cadastrar', authController.cadastrar);
 router.post('/logout', authController.logout); 
 router.get('/getCurrentUser', authController.getCurrentUser);
 router.get('/conversas', authController.getConversations);
+router.get('/', authController.loadHomePage);
 
 module.exports = router;

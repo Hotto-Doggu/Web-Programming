@@ -84,14 +84,28 @@ const loadConversations = async () => {
 
     if (response.ok) {
       const { chats } = await response.json();
-      // Processar e exibir as conversas no frontend conforme necessário
+
+      // Limpar o chat antes de exibir as novas mensagens
+      limparChat();
+
+      // Exibir as mensagens de todas as conversas
+      chats.forEach((chat) => {
+        chat.messages.forEach((message) => {
+          // Ajuste para evitar duplicação do prefixo "Chatbot:"
+          const senderPrefix = message.sender === 'Chatbot' ? '' : `${message.sender}: `;
+          exibirMensagem(chat.withUser, message.sender, `${senderPrefix}${message.content}`);
+        });
+      });
+
     } else {
       // Lidar com erros ou nenhum retorno de conversas
+      console.error('Erro ao carregar conversas:', response.statusText);
     }
   } catch (error) {
     console.error('Erro ao carregar conversas:', error);
   }
 };
+
 
 async function autenticar() {
   const usernameInput = document.getElementById('username');
@@ -123,10 +137,11 @@ async function autenticar() {
 
 function handleSuccessfulLogin(result) {
   limparChat();
-  // Assumindo que result.messages contém as mensagens salvas
-  if (result.messages) {
-    result.messages.forEach((message) => {
-      exibirMensagem(message.withUser, message.sender, message.content);
+  if (result.chats) {
+    result.chats.forEach((chat) => {
+      chat.messages.forEach((message) => {
+        exibirMensagem(chat.withUser, message.sender, message.content);
+      });
     });
   }
   resultado.textContent = 'Login realizado com sucesso!';
@@ -136,7 +151,7 @@ function handleSuccessfulLogin(result) {
 
 function handleLoginError(status) {
   if (status === 401) {
-    resultado.textContent = 'Senha incorreta. Tente novamente.';
+    resultado.textContent = 'Nome de usuário ou senha incorretos. Tente novamente.';
   } else if (status === 404) {
     resultado.textContent = 'Usuário não encontrado. Verifique o nome de usuário.';
   } else {
@@ -162,11 +177,15 @@ async function cadastrar() {
       body: JSON.stringify({ username, password, action: 'register' }),
     });
 
-    const result = await response.text();
-    resultado.textContent = result;
+    if (response.ok) {
+      const result = await response.text();
+      resultado.textContent = result;
+    } else {
+      resultado.textContent = 'Erro durante o cadastro. Tente novamente mais tarde.';
+    }
   } catch (error) {
     console.error('Erro durante o cadastro:', error);
-    resultado.textContent = 'Erro durante o cadastro.';
+    resultado.textContent = 'Erro durante o cadastro. Tente novamente mais tarde.';
   }
 }
 
@@ -183,7 +202,7 @@ async function logout() {
 
     alert(result); // Exibe uma mensagem indicando que o logout foi realizado
 
-    // Redireciona para a página de login ou executa outras ações de interface do usuário
+    // Recarrega a página
     window.location.reload();
   } catch (error) {
     console.error('Erro durante o logout:', error);

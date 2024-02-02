@@ -119,4 +119,20 @@ const getConversations = async (req, res) => {
     }
 };
   
-module.exports = { User, getCurrentUser, autenticar, cadastrar, logout, getConversations };
+const loadHomePage = (req, res) => {
+    if (req.session && req.session.user) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('Erro ao destruir a sessão:', err);
+          return res.status(500).send('Erro ao desconectar usuário.');
+        }
+        res.clearCookie(req.sessionID);
+        res.redirect('/');
+      });
+    } else {
+      // Renderizar página inicial
+      res.render('index'); // Ou envie o HTML de outra forma
+    }
+  };
+  
+module.exports = { User, getCurrentUser, autenticar, cadastrar, logout, getConversations, loadHomePage };
