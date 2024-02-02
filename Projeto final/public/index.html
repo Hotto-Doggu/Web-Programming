@@ -7,7 +7,19 @@
     <link rel="stylesheet" href="tp.css">
     <title>UFOP ChaT</title>
 </head>
-<header><h1>UFOP ChaT</h1></header>
+<header><h1>UFOP ChaT</h1>
+  <div class="sticky-user-menu">
+    <div class="user-info">
+      <img src="icone.tiff" alt="User Avatar" class="user-avatar">
+      <button class="user-button" onclick="toggleMenu()">Usuário</button>
+    </div>
+    <div class="menu" id="userMenu">
+      <a href="#">Perfil</a>
+      <a href="#">Configurações</a>
+      <a href="#">Sair</a>
+    </div>
+  </div>
+</header>
     
     <br/>
 <body>
@@ -23,6 +35,10 @@
       <button onclick="logout()">Sair</button>
   
     </div>-->
+
+    
+  
+    
 	<div id="resultado"></div>
   
     <div id="chat-container">
