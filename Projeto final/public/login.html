@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleLogin.css">
 </head>
 <body>
-    <div class="container">
-        <h1>UFOP ChaT</h1>
-        <form action="index.html"><!-- quando você tem um servidor, o valor do atributo action deve ser o caminho para o script no servidor que lidará com a lógica do formulário. No caso de um servidor Node.js, você mencionou "server.js", mas o importante é que o caminho deve apontar para o script do servidor responsável por processar os dados do formulário e lidar com a autenticação.-->
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">Entrar</button>
-        </form>
-        <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
-    </div>
+    
+        <div class="image-container"></div>
+		
+	        <div class="login-container">
+			
+				<div class="cont">
+	            <h1>UFOP ChaT</h1>
+	            <form action="index.html">
+	                <label for="username">Usuário:</label>
+	                <input type="text" id="username" name="username" required>
 	
-	<script src="tp.js"></script>
+	                <label for="password">Senha:</label>
+	                <input type="password" id="password" name="password" required>
+	
+	                <button type="submit">Entrar</button>
+	            </form>
+	            <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+		</div>
+        </div>
+    
+    <script src="tp.js"></script>
 </body>
 </html>
+

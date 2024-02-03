@@ -7,44 +7,32 @@
     <link rel="stylesheet" href="tp.css">
     <title>UFOP ChaT</title>
 </head>
-<header><h1>UFOP ChaT</h1>
-  <div class="sticky-user-menu">
+<header></header>
+
+<h1>UFOP ChaT</h1>
+  
+<div class="sticky-user-menu">
     <div class="user-info">
       <img src="icone.tiff" alt="User Avatar" class="user-avatar">
       <button class="user-button" onclick="toggleMenu()">Usuário</button>
     </div>
     <div class="menu" id="userMenu">
-      <a href="#">Perfil</a>
-      <a href="#">Configurações</a>
-      <a href="#">Sair</a>
+      <a href="perfil.html">Perfil</a>
+      <!-- <a href="#">Configurações</a>-->
+      <a href="login.html">Sair</a>
     </div>
-  </div>
-</header>
+</div>
     
-    <br/>
+   
 <body>
- <!-- <div id="auth-container">
-      <label for="username">Usuário:</label>
-      <input type="text" id="username" placeholder="Digite o usuário">
-  
-      <label for="password">Senha:</label>
-      <input type="password" id="password" placeholder="Digite a senha">
-  
-      <button onclick="autenticar()">Logar</button>
-      <button onclick="cadastrar()">Cadastrar</button>
-      <button onclick="logout()">Sair</button>
-  
-    </div>-->
-
-    
-  
+      
     
 	<div id="resultado"></div>
   
     <div id="chat-container">
       <div id="chat-history"></div>
       <div id="user-input">
-        <textarea id="message-input" placeholder="Type your message..." rows="4"></textarea>
+        <textarea id="message-input" placeholder="Type your message..." rows="6"></textarea>
         <button onclick="sendMessage()">Send</button>
       </div>
       <div id="chat-messages"></div>

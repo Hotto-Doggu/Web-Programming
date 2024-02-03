@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Nome e Senha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Alterar Nome ou Senha</h1>
+        <form action="sucesso.html">
+            <label for="opcao">Escolha o que deseja alterar:</label>
+            <select id="opcao" name="opcao">
+                <option value="nome">Nome</option>
+                <option value="senha">Senha</option>
+            </select>
+
+            <div id="campoNome" style="display:none;">
+                <label for="novoNome">Novo Nome:</label>
+                <input type="text" id="novoNome" name="novoNome">
+            </div>
+
+            <div id="campoSenha" style="display:none;">
+                <label for="novaSenha">Nova Senha:</label>
+                <input type="password" id="novaSenha" name="novaSenha">
+            </div>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <p><a href="index.html">Voltar para a Página Principal</a></p>
+
+        
+    </div>
+
+	<script>
+        
+        // Adiciona eventos para exibir os campos conforme a escolha do usuário
+        document.getElementById('opcao').addEventListener('change', function() {
+            var opcaoSelecionada = this.value;
+
+            // Oculta ambos os campos
+            document.getElementById('campoNome').style.display = 'none';
+            document.getElementById('campoSenha').style.display = 'none';
+
+            // Exibe o campo correspondente à escolha do usuário
+            if (opcaoSelecionada === 'nome') {
+                document.getElementById('campoNome').style.display = 'block';
+            } else if (opcaoSelecionada === 'senha') {
+                document.getElementById('campoSenha').style.display = 'block';
+            }
+        });
+    </script>
+
+    </body>
+</html>
+

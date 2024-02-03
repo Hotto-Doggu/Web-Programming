@@ -1,4 +1,5 @@
 // tp.js
+
 async function sendMessage() {
   var messageInput = document.getElementById('message-input');
   var message = messageInput.value;
@@ -9,103 +10,36 @@ async function sendMessage() {
     newMessage.className = 'message';
 
     // Adicione o nome do usuário ao remetente da mensagem
-    newMessage.textContent = `${await getCurrentUser()}: ${message}`;
+    newMessage.textContent = `${getCurrentUser()}: ${message}`;
     chatMessages.appendChild(newMessage);
 
     // Enviar a mensagem para o servidor com o nome de usuário
-    try {
-      const response = await fetch('/api/query', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: await getCurrentUser(), query: message }),
-      });
-
-      const result = await response.json();
-
-      // Exibir a resposta do chatbot na tela
-      const chatbotResponse = document.createElement('div');
-      chatbotResponse.className = 'message';
-      chatbotResponse.textContent = `Chatbot: ${result.answer}`;
-      chatMessages.appendChild(chatbotResponse);
-
-      messageInput.value = ''; // Limpar o campo de entrada
-    } catch (error) {
-      console.error('Erro ao enviar mensagem:', error);
-    }
-  }
-}
-
-async function getCurrentUser() {
-  try {
-    const response = await fetch('/auth/getCurrentUser', {
-      method: 'GET',
+    const response = await fetch('/api/query', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ username: getCurrentUser(), query: message }),
     });
 
-    if (response.ok) {
-      const user = await response.json();
-      return user.username;
-    } else {
-      return 'Usuário'; 
-    }
-  } catch (error) {
-    console.error('Erro ao obter usuário atual:', error);
-    return 'Usuário'; 
+    const result = await response.json();
+
+    // Exibir a resposta do chatbot na tela
+    const chatbotResponse = document.createElement('div');
+    chatbotResponse.className = 'message';
+    chatbotResponse.textContent = `Chatbot: ${result.answer}`;
+    chatMessages.appendChild(chatbotResponse);
+
+    messageInput.value = ''; // Limpar o campo de entrada
+    chatMessages.scrollTop = chatMessages.scrollHeight;// Rolar automaticamente para baixo
   }
 }
 
-// Função para limpar o chat
-function limparChat() {
-  const chatMessages = document.getElementById('chat-messages');
-  chatMessages.innerHTML = '';
+function getCurrentUser() {
+  // Adicione lógica para obter o nome do usuário, verificar se está autenticado
+  // Se não estiver autenticado, retorne um valor padrão ou execute outra lógica de controle de erro
+  return 'Usuário'; // Substitua pelo nome do usuário atual
 }
-
-// Função para exibir mensagens no chat no formato correto
-function exibirMensagem(withUser, sender, content) {
-  const chatMessages = document.getElementById('chat-messages');
-  const newMessage = document.createElement('div');
-  newMessage.className = 'message';
-  newMessage.textContent = `${withUser ? withUser + ': ' : ''}${sender}: ${content}`;
-  chatMessages.appendChild(newMessage);
-}
-
-const loadConversations = async () => {
-  try {
-    const response = await fetch('/auth/conversas', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      const { chats } = await response.json();
-
-      // Limpar o chat antes de exibir as novas mensagens
-      limparChat();
-
-      // Exibir as mensagens de todas as conversas
-      chats.forEach((chat) => {
-        chat.messages.forEach((message) => {
-          // Ajuste para evitar duplicação do prefixo "Chatbot:"
-          const senderPrefix = message.sender === 'Chatbot' ? '' : `${message.sender}: `;
-          exibirMensagem(chat.withUser, message.sender, `${senderPrefix}${message.content}`);
-        });
-      });
-
-    } else {
-      // Lidar com erros ou nenhum retorno de conversas
-      console.error('Erro ao carregar conversas:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Erro ao carregar conversas:', error);
-  }
-};
-
 
 async function autenticar() {
   const usernameInput = document.getElementById('username');
@@ -115,50 +49,17 @@ async function autenticar() {
   const username = usernameInput.value;
   const password = passwordInput.value;
 
-  try {
-    const response = await fetch('/auth/autenticar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
+  const response = await fetch('/auth/autenticar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password, action: 'login' }),
+  });
 
-    if (response.ok) {
-      handleSuccessfulLogin(await response.json());
-    } else {
-      handleLoginError(response.status);
-    }
-  } catch (error) {
-    console.error('Erro durante o login:', error);
-    resultado.textContent = `Erro durante o login: ${error.message}`;
-  }
+  const result = await response.text();
+  resultado.textContent = result;
 }
-
-function handleSuccessfulLogin(result) {
-  limparChat();
-  if (result.chats) {
-    result.chats.forEach((chat) => {
-      chat.messages.forEach((message) => {
-        exibirMensagem(chat.withUser, message.sender, message.content);
-      });
-    });
-  }
-  resultado.textContent = 'Login realizado com sucesso!';
-  loadConversations();
-}
-
-
-function handleLoginError(status) {
-  if (status === 401) {
-    resultado.textContent = 'Nome de usuário ou senha incorretos. Tente novamente.';
-  } else if (status === 404) {
-    resultado.textContent = 'Usuário não encontrado. Verifique o nome de usuário.';
-  } else {
-    resultado.textContent = 'Erro durante o login. Tente novamente mais tarde.';
-  }
-}
-
 
 async function cadastrar() {
   const usernameInput = document.getElementById('username');
@@ -168,44 +69,20 @@ async function cadastrar() {
   const username = usernameInput.value;
   const password = passwordInput.value;
 
-  try {
-    const response = await fetch('/auth/cadastrar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password, action: 'register' }),
-    });
+  const response = await fetch('/auth/cadastrar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password, action: 'register' }),
+  });
 
-    if (response.ok) {
-      const result = await response.text();
-      resultado.textContent = result;
-    } else {
-      resultado.textContent = 'Erro durante o cadastro. Tente novamente mais tarde.';
-    }
-  } catch (error) {
-    console.error('Erro durante o cadastro:', error);
-    resultado.textContent = 'Erro durante o cadastro. Tente novamente mais tarde.';
-  }
+  const result = await response.text();
+  resultado.textContent = result;
 }
 
-async function logout() {
-  try {
-    const response = await fetch('/auth/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const result = await response.text();
-
-    alert(result); // Exibe uma mensagem indicando que o logout foi realizado
-
-    // Recarrega a página
-    window.location.reload();
-  } catch (error) {
-    console.error('Erro durante o logout:', error);
-    alert('Erro durante o logout.');
-  }
+function logout() {
+  // Adicionar lógica de logout conforme necessário
+  // Recarregar a página
+  alert('Logout realizado');
 }

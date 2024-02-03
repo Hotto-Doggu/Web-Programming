@@ -125,7 +125,7 @@ textarea {
 }
 .sticky-user-menu {
   position: fixed;
-  top: 30px;
+  top: 0;
   left: 0;
   background-color: black;
   padding: 10px;
@@ -159,6 +159,7 @@ textarea {
   position: absolute;
   top: 40px;
   right: 0;
+  width: 110px;
   background-color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

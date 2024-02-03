@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Alterar Nome e Senha</h1>
+        <form onsubmit="mostrarPopup(); return false;">
+            <label for="novoNome">Novo Nome:</label>
+            <input type="text" id="novoNome" name="novoNome" required>
+
+            <label for="novaSenha">Nova Senha:</label>
+            <input type="password" id="novaSenha" name="novaSenha" required>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <p><a href="index.html">Voltar para a Página Principal</a></p>
+
+        <!-- Modal para mostrar mensagem de sucesso -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharPopup()">&times;</span>
+                <p>Alterações salvas com sucesso!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para manipular o modal -->
+    <script>
+        function mostrarPopup() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+        }
+
+        function fecharPopup() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
