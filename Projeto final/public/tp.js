@@ -67,7 +67,6 @@ function limparChat() {
 
 // Função para exibir mensagens no chat no formato correto
 function exibirMensagem(withUser, sender, content) {
-  console.log(`Exibindo mensagem para ${withUser} - Sender: ${sender}, Content: ${content}`);
   const chatMessages = document.getElementById('chat-messages');
   const newMessage = document.createElement('div');
   newMessage.className = 'message';
@@ -96,8 +95,7 @@ const loadConversations = async () => {
       chats.forEach((chat) => {
         chat.messages.forEach((message) => {
           // Ajuste para evitar duplicação do prefixo "Chatbot:"
-          const senderPrefix = message.sender === 'Chatbot' ? '' : `${message.sender}: `;
-          exibirMensagem(chat.withUser, message.sender, `${senderPrefix}${message.content}`);
+          exibirMensagem(chat.withUser, message.sender, message.content);
         });
       });
 
@@ -136,7 +134,6 @@ async function autenticar() {
       }
       
       handleSuccessfulLogin(result);
-      console.log('Conversas após login:', result.chats); // log
     } 
     else { handleLoginError(response.status);}
   } catch (error) {
@@ -156,7 +153,6 @@ function handleSuccessfulLogin(result) {
   resultado.textContent = 'Login realizado com sucesso!';
   // Utilizando history.pushState para atualizar a URL sem recarregar a página
   history.pushState(null, null, '/');
-  loadConversations();
 }
 
 function handleLoginError(status) {
