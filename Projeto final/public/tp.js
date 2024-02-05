@@ -67,6 +67,7 @@ function limparChat() {
 
 // Função para exibir mensagens no chat no formato correto
 function exibirMensagem(withUser, sender, content) {
+  console.log(`Exibindo mensagem para ${withUser} - Sender: ${sender}, Content: ${content}`);
   const chatMessages = document.getElementById('chat-messages');
   const newMessage = document.createElement('div');
   newMessage.className = 'message';
@@ -79,7 +80,6 @@ function exibirMensagem(withUser, sender, content) {
 }
 
 const loadConversations = async () => {
-  console.log('Iniciando loadConversations');
   try {
     const response = await fetch('/auth/conversas', {
       method: 'GET',
@@ -89,14 +89,11 @@ const loadConversations = async () => {
     });
 
     if (response.ok) {
-      const { chats } = await response.json();
-
-      // Limpar o chat antes de exibir as novas mensagens
-      limparChat();
+      const data = await response.json();
+      const chats = data && data.chats ? data.chats : [];
 
       // Exibir as mensagens de todas as conversas
       chats.forEach((chat) => {
-        console.log(`Mensagens para ${chat.withUser}:`, chat.messages); //log
         chat.messages.forEach((message) => {
           // Ajuste para evitar duplicação do prefixo "Chatbot:"
           const senderPrefix = message.sender === 'Chatbot' ? '' : `${message.sender}: `;
@@ -110,9 +107,7 @@ const loadConversations = async () => {
     }
   } catch (error) {
     console.error('Erro ao carregar conversas:', error);
-  } finally {
-    console.log('Finalizando loadConversations');
-  }  
+  } 
 };
 
 async function autenticar() {
@@ -141,7 +136,7 @@ async function autenticar() {
       }
       
       handleSuccessfulLogin(result);
-      console.log('Conversas após login:', result.chats); // Adicione este log
+      console.log('Conversas após login:', result.chats); // log
     } 
     else { handleLoginError(response.status);}
   } catch (error) {
@@ -159,9 +154,10 @@ function handleSuccessfulLogin(result) {
     });
   }
   resultado.textContent = 'Login realizado com sucesso!';
+  // Utilizando history.pushState para atualizar a URL sem recarregar a página
+  history.pushState(null, null, '/');
   loadConversations();
 }
-
 
 function handleLoginError(status) {
   const resultado = document.getElementById('resultado');

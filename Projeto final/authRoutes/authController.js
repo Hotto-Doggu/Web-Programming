@@ -109,7 +109,6 @@ const getConversations = async (req, res) => {
       const user = req.session.user;
   
       if (user) {
-        console.log('Conversas do usuário:', user.chats); // log
         return res.status(200).json({ chats: user.chats });
       } else {
         return res.status(401).json({ message: 'Usuário não autenticado' });
