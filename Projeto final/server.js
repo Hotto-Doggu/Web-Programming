@@ -1,3 +1,4 @@
+//server.js
 const express = require('express');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -49,15 +50,25 @@ app.use((req, res, next) => {
     next();
   });
 
+// Configuração do Middleware Estático
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
+// Configuração do Body Parser:
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rotas de autenticação
 app.use('/auth', authRoutes);
-// Rotas originais do chat
+// Rotas do chat
 app.use('/api', chatRoutes);
 
+// Middleware para tratamento de erros
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Algo deu errado!');
+});
+
+// Início do servidor
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

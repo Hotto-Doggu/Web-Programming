@@ -33,7 +33,7 @@ const autenticar = async (req, res) => {
         if (user.password === password) {
           // Armazena o usuário na sessão
           req.session.user = user;
-          return res.json({ message: 'Logado com sucesso!' });
+          return res.json({ message: 'Logado com sucesso!', redirectTo: '/' });
         } else {
           return res.status(401).send('Senha incorreta.');
         }
@@ -79,7 +79,7 @@ const logout = (req, res) => {
         }
         
         // Limpar o cookie de sessão no cliente
-        res.clearCookie(req.sessionID); // Alterado de req.session.cookie.name para req.sessionID
+        res.clearCookie(req.sessionID); 
         
         return res.send('Logout realizado com sucesso!');
         });
@@ -109,6 +109,7 @@ const getConversations = async (req, res) => {
       const user = req.session.user;
   
       if (user) {
+        console.log('Conversas do usuário:', user.chats); // log
         return res.status(200).json({ chats: user.chats });
       } else {
         return res.status(401).json({ message: 'Usuário não autenticado' });

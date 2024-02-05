@@ -3,19 +3,40 @@ body {
     background-color: rgb(132, 10, 34);
     margin: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
 }
 
-.container {
+.cont{
+    
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 300px;
     width: 100%;
+    max-height: 400px;
+    height: 100%;
     text-align: center;
+
+
+}
+
+.image-container {
+    background-image: url('vista_de_ouro_preto.jpg');
+    background-size: cover;
+    background-position: center;
+    flex: 1;
+    height: 100vh;
+}
+
+.login-container {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 form {
@@ -57,6 +78,3 @@ a {
     width: 100%;
     margin-top: 20px;
 }
-
-
-

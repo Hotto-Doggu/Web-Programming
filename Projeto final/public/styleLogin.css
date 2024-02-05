@@ -22,7 +22,7 @@ body {
 }
 
 .image-container {
-    background-image: url('/Users/biancamsp/Desktop/Prog Web/TPFinal/public/vista_de_ouro_preto.jpg');
+    background-image: url('vista_de_ouro_preto.jpg');
     background-size: cover;
     background-position: center;
     flex: 1;
